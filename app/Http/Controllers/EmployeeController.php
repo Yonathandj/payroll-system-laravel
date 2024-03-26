@@ -42,13 +42,13 @@ class EmployeeController extends Controller {
         return redirect("/");
     }
 
-    public function updateView(string $id): View {
+    public function updateView($id): View {
         $employee = employee::findOrFail($id);
 
         return view('employee-update',['employee' => $employee]);
     }
 
-    public function updateLogic(Request $request, string $id): RedirectResponse {
+    public function updateLogic(Request $request, $id): RedirectResponse {
         $request->validate([
             'full_name'       => 'required|min:3',
             'email'           => 'required|min:13',
@@ -59,8 +59,15 @@ class EmployeeController extends Controller {
         ]);
 
         $employee = employee::findOrFail($id);
-        
+
         $employee->update($request->all());
+        
+        return redirect("/");
+    }
+
+    public function deleteLogic($id): RedirectResponse {
+        $employee = employee::findOrFail($id);
+        $employee->delete();
         
         return redirect("/");
     }

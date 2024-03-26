@@ -39,10 +39,12 @@
                                         <td>
                                             <div class="h-10 d-flex gap-4">
                                                 <a href="/employee/{{ $employee->id }}" class="text-decoration-none text-white d-block btn px-2 py-4 btn-primary">Update</a>
-                                                <button type="submit" class="btn btn-sm btn-danger">
-                                                    Delete
-                                                    <form onsubmit="return confirm('Are you sure want to delete this employee?');" action="/employee/" + {{ $employee->id }}" method="DELETE"></form>
-                                                </button>
+
+                                                <form action="/employee/{{ $employee->id }}" method="POST">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <input class="btn btn-danger" type="submit" value="Delete" />
+                                                </form>
                                             </div>
                                         </td>
                                     </tr>
