@@ -27,7 +27,7 @@
                                     </tr>
                                 </thead>
 
-                                <tbody>
+                                <tbody class="text-center">
                                 @forelse ($employees as $employee)
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -11,10 +13,14 @@ use App\Models\salary;
 
 class EmployeeController extends Controller {
     
-    public function index() : View {
-        $employees = employee::select('employees.*', 'salaries.salary_amount')->leftJoin('salaries', 'employees.id', '=', 'salaries.employee_id')->get();
+    public function index() {
+        if(Auth::check()) {
+            $employees = employee::select('employees.*', 'salaries.salary_amount')->leftJoin('salaries', 'employees.id', '=', 'salaries.employee_id')->get();
 
-        return view('employee-list',['employees' => $employees]);
+            return view('employee-list',['employees' => $employees]);
+        } else {
+            return redirect("/login");
+        }
     }
 
     public function createView(): View {

@@ -13,3 +13,6 @@ Route::get('/employee/{id}', [EmployeeController::class, 'updateView']);
 Route::post('/employee/{id}', [EmployeeController::class, 'updateLogic']);
 
 Route::delete('/employee/{id}', [EmployeeController::class, 'deleteLogic']);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
