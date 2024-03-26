@@ -20,8 +20,7 @@ class EmployeeController extends Controller {
     }
 
 
-    public function createLogic(Request $request): RedirectResponse
-    {
+    public function createLogic(Request $request): RedirectResponse {
         $request->validate([
             'full_name'       => 'required|min:3',
             'email'           => 'required|min:13',
@@ -40,6 +39,29 @@ class EmployeeController extends Controller {
             'hire_date'         => $request->hire_date
         ]);
 
+        return redirect("/");
+    }
+
+    public function updateView(string $id): View {
+        $employee = employee::findOrFail($id);
+
+        return view('employee-update',['employee' => $employee]);
+    }
+
+    public function updateLogic(Request $request, string $id): RedirectResponse {
+        $request->validate([
+            'full_name'       => 'required|min:3',
+            'email'           => 'required|min:13',
+            'phone_number'    => 'required|min:10',
+            'address'         => 'required|min:3',
+            'position'        => 'required|min:2',
+            'hire_date'       => 'required'
+        ]);
+
+        $employee = employee::findOrFail($id);
+        
+        $employee->update($request->all());
+        
         return redirect("/");
     }
 }

@@ -9,21 +9,13 @@
                         <h1 class="fw-bold">Payroll Management System</h1>
                     </div>
                     <div class="card-body">
-                        <div>
-                            <a href="/employee" class="btn btn-primary btn-sm" title="Add New Employee">
-                            Add New Employee
-                            </a>
-                        </div>
-
-                        <br/>
-                        <br/>
-
                         <div class="table-responsive">
                             <h3 class="fw-bolder text-center">Employee list</h3>
+                            <a href="/employee" class="btn btn-primary btn-sm align-self-start px-4 py-2 fw-bold" title="Add New Employee">Add New Employee</a>
                             <table class="table table-striped">
                                 <thead>
-                                    <tr>
-                                        <th>#</th>
+                                    <tr class="text-center">
+                                        <th>No</th>
                                         <th>Full Name</th>
                                         <th>Email</th>
                                         <th>Phone Number</th>
@@ -37,13 +29,22 @@
                                 <tbody>
                                 @forelse ($employees as $employee)
                                     <tr>
-                                        <td>{{ $employee->id }}</td>
+                                        <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $employee->full_name }}</td>
                                         <td>{{ $employee->email }}</td>
                                         <td>{{ $employee->phone_number }}</td>
                                         <td>{{ $employee->address }}</td>
                                         <td>{{ $employee->position }}</td>
                                         <td>{{ $employee->hire_date }}</td>
+                                        <td>
+                                            <div class="h-10 d-flex gap-4">
+                                                <a href="/employee/{{ $employee->id }}" class="text-decoration-none text-white d-block btn px-2 py-4 btn-primary">Update</a>
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    Delete
+                                                    <form onsubmit="return confirm('Are you sure want to delete this employee?');" action="/employee/" + {{ $employee->id }}" method="DELETE"></form>
+                                                </button>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @empty
                                     <div class="alert alert-danger text-center">
