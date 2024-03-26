@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
 use App\Models\employee;
+use App\Models\salary;
 
 class EmployeeController extends Controller {
     
     public function index() : View {
-        $employees = employee::all();
+        $employees = employee::select('employees.*', 'salaries.salary_amount')->leftJoin('salaries', 'employees.id', '=', 'salaries.employee_id')->get();
+
         return view('employee-list',['employees' => $employees]);
     }
 
@@ -27,10 +29,11 @@ class EmployeeController extends Controller {
             'phone_number'    => 'required|min:10',
             'address'         => 'required|min:3',
             'position'        => 'required|min:2',
-            'hire_date'       => 'required'
+            'hire_date'       => 'required',
+            'salary_amount'   => 'required'
         ]);
 
-        employee::create([
+        $currentEmployee = employee::create([
             'full_name'         => $request->full_name,
             'email'             => $request->email,
             'phone_number'      => $request->phone_number,
@@ -39,11 +42,20 @@ class EmployeeController extends Controller {
             'hire_date'         => $request->hire_date
         ]);
 
+        salary::create([
+            'employee_id'       => $currentEmployee->id,
+            'salary_amount'     => $request->salary_amount,
+        ]);
+
         return redirect("/");
     }
 
     public function updateView($id): View {
-        $employee = employee::findOrFail($id);
+
+        $employee = employee::leftJoin('salaries', 'employees.id', '=', 'salaries.employee_id')
+        ->select('employees.*', 'salaries.salary_amount')
+        ->where('employees.id',$id)
+        ->first();
 
         return view('employee-update',['employee' => $employee]);
     }
@@ -59,9 +71,15 @@ class EmployeeController extends Controller {
         ]);
 
         $employee = employee::findOrFail($id);
-
         $employee->update($request->all());
-        
+
+        $salary = salary::select('salaries.*')->where("employee_id", $id)->first();
+
+        salary::where('id', '=', $salary->id)
+            ->update([
+              'salary_amount' => $request->salary_amount,
+            ]);
+
         return redirect("/");
     }
 

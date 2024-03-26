@@ -22,6 +22,7 @@
                                         <th>Address</th>
                                         <th>Position</th>
                                         <th>Hire Date</th>
+                                        <th>Salary Amount</th>
                                         <th>Option</th>
                                     </tr>
                                 </thead>
@@ -36,6 +37,7 @@
                                         <td>{{ $employee->address }}</td>
                                         <td>{{ $employee->position }}</td>
                                         <td>{{ $employee->hire_date }}</td>
+                                        <td>{{ $employee->salary_amount }}</td>
                                         <td>
                                             <div class="h-10 d-flex gap-4">
                                                 <a href="/employee/{{ $employee->id }}" class="text-decoration-none text-white d-block btn px-2 py-4 btn-primary">Update</a>

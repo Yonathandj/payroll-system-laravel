@@ -11,6 +11,6 @@ class salary extends Model
 
     protected $fillable = [
         'employee_id',
-        'salaryAmount'
+        'salary_amount'
     ];
 }

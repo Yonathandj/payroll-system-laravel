@@ -84,6 +84,20 @@
                                 </div>
                             </div>
 
+                            <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label class="font-weight-bold">Salary Amount</label>
+                                        <input type="number" class="form-control @error('salary_amount') is-invalid @enderror" name="salary_amount" value="{{ old('salary_amount') }}" placeholder="Enter employee's salary amount">
+                                    
+                                        @error('salary_amount')
+                                            <div class="alert alert-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
                             <button type="submit" class="btn btn-md btn-primary me-3">SAVE</button>
                         </form> 
                     </div>
