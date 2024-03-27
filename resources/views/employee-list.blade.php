@@ -40,8 +40,7 @@
                                         <td>{{ $employee->salary_amount }}</td>
                                         <td>
                                             <div class="h-10 d-flex gap-4">
-                                                <a href="/employee/{{ $employee->id }}" class="text-decoration-none text-white d-block btn px-2 py-4 btn-primary">Update</a>
-
+                                                <a href="/employee/{{ $employee->id }}" class="text-decoration-none text-white bg-primary p-2 rounded">Update</a>
                                                 <form action="/employee/{{ $employee->id }}" method="POST">
                                                     @method('DELETE')
                                                     @csrf

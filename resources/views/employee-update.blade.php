@@ -12,7 +12,7 @@
                             @csrf
                             <div class="form-group mb-3">
                                 <label class="font-weight-bold">Full Name</label>
-                                <input type="text" class="form-control @error('full_name') is-invalid @enderror" name="full_name" value="{{ $employee->full_name }}" placeholder="Enter employee's fullname">
+                                <input type="text" class="form-control @error('full_name') is-invalid @enderror" name="full_name" value="{{ $employee->full_name }}" placeholder="Enter employee's full name">
                             
                                 @error('full_name')
                                     <div class="alert alert-danger mt-2">
@@ -95,11 +95,10 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                </div>
+                                    </div>
+                                <button type="submit" class="btn btn-md btn-primary px-4 py-2">SAVE</button>
                             </div>
                         </div>
-
-                            <button type="submit" class="btn btn-md btn-primary me-3">SAVE</button>
                         </form> 
                     </div>
                 </div>

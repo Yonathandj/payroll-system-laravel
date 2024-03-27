@@ -11,7 +11,7 @@
                             @csrf
                             <div class="form-group mb-3">
                                 <label class="font-weight-bold">Full Name</label>
-                                <input type="text" class="form-control @error('full_name') is-invalid @enderror" name="full_name" value="{{ old('full_name') }}" placeholder="Enter employee's fullname">
+                                <input type="text" class="form-control @error('full_name') is-invalid @enderror" name="full_name" value="{{ old('full_name') }}" placeholder="Enter employee's full name">
                             
                                 @error('full_name')
                                     <div class="alert alert-danger mt-2">
@@ -82,9 +82,8 @@
                                         @enderror
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
+                                <div class="col-md-6">
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Salary Amount</label>
                                         <input type="number" class="form-control @error('salary_amount') is-invalid @enderror" name="salary_amount" value="{{ old('salary_amount') }}" placeholder="Enter employee's salary amount">
@@ -96,9 +95,12 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                <button type="submit" class="btn btn-md btn-primary px-4 py-2">SAVE</button>
+
                             </div>
 
-                            <button type="submit" class="btn btn-md btn-primary me-3">SAVE</button>
+                            </div>
                         </form> 
                     </div>
                 </div>

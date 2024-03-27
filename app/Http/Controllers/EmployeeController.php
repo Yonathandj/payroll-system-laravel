@@ -14,21 +14,23 @@ use App\Models\salary;
 class EmployeeController extends Controller {
     
     public function index() {
-        if(Auth::check()) {
-            $employees = employee::select('employees.*', 'salaries.salary_amount')->leftJoin('salaries', 'employees.id', '=', 'salaries.employee_id')->get();
+        if(!Auth::check()) return redirect("/login");
 
-            return view('employee-list',['employees' => $employees]);
-        } else {
-            return redirect("/login");
-        }
+        $employees = employee::select('employees.*', 'salaries.salary_amount')->leftJoin('salaries', 'employees.id', '=', 'salaries.employee_id')->get();
+
+        return view('employee-list',['employees' => $employees]);
     }
 
     public function createView(): View {
+        if(!Auth::check()) return redirect("/login");
+
         return view('employee-create');
     }
 
 
     public function createLogic(Request $request): RedirectResponse {
+        if(!Auth::check()) return redirect("/login");
+
         $request->validate([
             'full_name'       => 'required|min:3',
             'email'           => 'required|min:13',
@@ -57,6 +59,7 @@ class EmployeeController extends Controller {
     }
 
     public function updateView($id): View {
+        if(!Auth::check()) return redirect("/login");
 
         $employee = employee::leftJoin('salaries', 'employees.id', '=', 'salaries.employee_id')
         ->select('employees.*', 'salaries.salary_amount')
@@ -67,6 +70,8 @@ class EmployeeController extends Controller {
     }
 
     public function updateLogic(Request $request, $id): RedirectResponse {
+        if(!Auth::check()) return redirect("/login");
+
         $request->validate([
             'full_name'       => 'required|min:3',
             'email'           => 'required|min:13',
@@ -90,6 +95,8 @@ class EmployeeController extends Controller {
     }
 
     public function deleteLogic($id): RedirectResponse {
+        if(!Auth::check()) return redirect("/login");
+
         $employee = employee::findOrFail($id);
         $employee->delete();
         
