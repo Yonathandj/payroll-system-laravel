@@ -4,7 +4,7 @@
  <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col-md-12">
-            <h2 class="fw-bold text-center">Update Employee Data</h2>
+            <h1 class="fw-bold text-center">Update Employee Data</h1>
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
                         <form action="/employee/{{ $employee->id }}" method="POST">
@@ -57,21 +57,23 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
-                                    <div class="form-group mb-3">
-                                        <label class="font-weight-bold">Position</label>
-                                        <input type="text" class="form-control @error('position') is-invalid @enderror" name="position" value="{{ $employee->position }}" placeholder="Enter employee's position">
-                                    
-                                        @error('position')
-                                            <div class="alert alert-danger mt-2">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label class="font-weight-bold">Position</label>
+                                            <input type="text" class="form-control @error('position') is-invalid @enderror" name="position" value="{{ $employee->position }}" placeholder="Enter employee's position">
+                                        
+                                            @error('position')
+                                                <div class="alert alert-danger mt-2">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
                             </div>
+                           
 
-                            <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6">
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Hire Date</label>
                                         <input type="date" class="form-control @error('hire_date') is-invalid @enderror" name="hire_date" value="{{ $employee->hire_date }}" placeholder="Enter employee's hire date">
@@ -96,13 +98,43 @@
                                             @enderror
                                         </div>
                                     </div>
-                                <button type="submit" class="btn btn-md btn-primary px-4 py-2">SAVE</button>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label class="font-weight-bold">Health Insurance Tax (Rp.)</label>
+                                        <input type="number" class="form-control @error('health_insurace_tax') is-invalid @enderror" name="health_insurace_tax" value="0" placeholder="Enter employee's health insurance tax">
+                                    
+                                        @error('health_insurace_tax')
+                                            <div class="alert alert-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label class="font-weight-bold">State Income Tax (Rp.)</label>
+                                        <input type="number" class="form-control @error('state_income_tax') is-invalid @enderror" name="state_income_tax" value="0" placeholder="Enter employee's state income tax">
+                                    
+                                        @error('state_income_tax')
+                                            <div class="alert alert-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                                    
+                            <button type="submit" class="btn btn-md btn-primary px-4 py-2">SAVE</button>
                             </div>
                         </div>
-                        </form> 
-                    </div>
+                    </form> 
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection

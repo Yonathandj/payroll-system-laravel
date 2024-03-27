@@ -17,7 +17,6 @@ class EmployeeController extends Controller {
         if(!Auth::check()) return redirect("/login");
 
         $employees = employee::select('employees.*', 'salaries.salary_amount')->leftJoin('salaries', 'employees.id', '=', 'salaries.employee_id')->get();
-
         return view('employee-list',['employees' => $employees]);
     }
 
@@ -50,11 +49,12 @@ class EmployeeController extends Controller {
             'hire_date'         => $request->hire_date
         ]);
 
+        $salaryAfterTaxDeductions = $request->salary_amount - ($request->health_insurace_tax + $request->state_income_tax);
+
         salary::create([
             'employee_id'       => $currentEmployee->id,
-            'salary_amount'     => $request->salary_amount,
+            'salary_amount'     => $salaryAfterTaxDeductions,
         ]);
-
         return redirect("/");
     }
 
@@ -86,9 +86,11 @@ class EmployeeController extends Controller {
 
         $salary = salary::select('salaries.*')->where("employee_id", $id)->first();
 
+        $salaryAfterTaxDeductions = $request->salary_amount - ($request->health_insurace_tax + $request->state_income_tax);
+
         salary::where('id', '=', $salary->id)
             ->update([
-              'salary_amount' => $request->salary_amount,
+              'salary_amount' => $salaryAfterTaxDeductions,
             ]);
 
         return redirect("/");
